@@ -4,4 +4,3 @@ pandas
 datetime
 bcrypt
 plotly.express
-json
