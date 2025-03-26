@@ -1,0 +1,6 @@
+# Ignorar a pasta venv
+venv/
+
+# Ignorar arquivos Python compilados
+*.pyc
+__pycache__/
