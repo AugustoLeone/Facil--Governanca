@@ -1,0 +1,671 @@
+{
+    "nome_secretaria": "Secretaria de Tecnologia",
+    "funcionamento": {
+        "horario": "08:00 - 17:00",
+        "dias_semana": [
+            "Segunda",
+            "Terça",
+            "Quarta",
+            "Quinta",
+            "Sexta"
+        ],
+        "local_atendimento": "Av. das Inovações, 123 - Centro, Cidade X",
+        "meios_contato": {
+            "telefone": "(11) 4002-8922",
+            "email": "atendimento@tecnologia.gov.br",
+            "site": "https://www.tecnologia.gov.br"
+        },
+        "responsavel_pela_secretaria": {
+            "nome": "Fulano de Tal",
+            "cargo": "Secretário de Tecnologia"
+        }
+    },
+    "projetos_ativos": [
+        {
+            "nome_projeto": "Estação Tech",
+            "descricao": "Cursos de capacitação profissional na área de tecnologia.",
+            "data_inicio": "2025-01-10",
+            "data_prevista_fim": "2025-06-30",
+            "status": "Em andamento",
+            "coordenador": "Coordenador X",
+            "parcerias": [
+                "Empresa A",
+                "Instituição B",
+                "Organização C"
+            ],
+            "modulos": [
+                {
+                    "nome_modulo": "Lógica de Programação",
+                    "duracao_horas": 40,
+                    "instrutor": "Instrutor 1",
+                    "percentual_conclusao": 75
+                },
+                {
+                    "nome_modulo": "Desenvolvimento Web",
+                    "duracao_horas": 60,
+                    "instrutor": "Instrutor 2",
+                    "percentual_conclusao": 20
+                },
+                {
+                    "nome_modulo": "Banco de Dados",
+                    "duracao_horas": 50,
+                    "instrutor": "Instrutor 3",
+                    "percentual_conclusao": 0
+                }
+            ],
+            "alunos": [
+                {
+                    "id": 1,
+                    "nome": "Ted Anderson",
+                    "idade": 45,
+                    "email": "tedandersonmkt@gmail.com",
+                    "ticket_medio": 500.0,
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [
+                        "POO"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nome": "Ted Anderson",
+                    "idade": 45,
+                    "email": "tedandersonmkt@gmail.com",
+                    "ticket_medio": 45.0,
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": []
+                },
+                {
+                    "id": 3,
+                    "nome": "Riquelme",
+                    "idade": 23,
+                    "email": "a@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [],
+                    "informacoes_extra": {
+                        "etnia": "pardo",
+                        "Rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "jardim industrial",
+                        "municipio": "Contagem",
+                        "cpf": "12312312311",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Superior",
+                        "escola_atual": "abc",
+                        "nome_pai": "Carlos",
+                        "nome_mae": "Carlinha"
+                    }
+                },
+                {
+                    "id": 4,
+                    "nome": "Augusto",
+                    "idade": 23,
+                    "email": "ab@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [],
+                    "informacoes_extra": {
+                        "etnia": "branco",
+                        "Rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "jardim industrial",
+                        "municipio": "contagem",
+                        "cpf": "32132132122",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Fundamental 2",
+                        "escola_atual": "cba",
+                        "nome_pai": "jao",
+                        "nome_mae": "jaozinha"
+                    }
+                },
+                {
+                    "id": 5,
+                    "nome": "Augisto",
+                    "idade": 23,
+                    "email": "ca@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [],
+                    "informacoes_extra": {
+                        "etnia": "branco",
+                        "rua": "frederico campos",
+                        "numero": "231",
+                        "bairro": "jardim industrial",
+                        "municipio": "contagem",
+                        "cpf": "52152152166",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Fundamental 1",
+                        "escola_atual": "asd",
+                        "nome_pai": "lkjh",
+                        "nome_mae": "poiuy"
+                    }
+                },
+                {
+                    "id": 6,
+                    "nome": "Rany",
+                    "idade": 29,
+                    "email": "cab@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [
+                        "HTML basico",
+                        "Html basico"
+                    ],
+                    "informacoes_extra": {
+                        "etnia": "pardo",
+                        "rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "jardim industrial",
+                        "municipio": "Contagem",
+                        "cpf": "78978978955",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Médio",
+                        "escola_atual": "lkj",
+                        "nome_pai": "Robson",
+                        "nome_mae": "Claudia"
+                    }
+                },
+                {
+                    "id": 7,
+                    "nome": "Augusto Leone",
+                    "idade": 20,
+                    "email": "augustoleone7@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [],
+                    "informacoes_extra": {
+                        "etnia": "pardo",
+                        "rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "Jardim Industrial",
+                        "municipio": "Contagem",
+                        "cpf": "07636444631",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Médio",
+                        "escola_atual": "abc",
+                        "nome_pai": "Joao",
+                        "nome_mae": "Marisa"
+                    }
+                },
+                {
+                    "id": 8,
+                    "nome": "Augusto",
+                    "idade": 23,
+                    "email": "a@gmail.com",
+                    "modulos_concluidos": [],
+                    "certificacoes_obtidas": [
+                        "Html basico"
+                    ],
+                    "informacoes_extra": {
+                        "etnia": "pardo",
+                        "rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "Jardim Industrial",
+                        "municipio": "Contagem",
+                        "cpf": "11122233311",
+                        "telefone1": "31991733802",
+                        "telefone2": "31991733802",
+                        "escolaridade": "Ensino Fundamental 2",
+                        "escola_atual": "mns",
+                        "nome_pai": "Joao",
+                        "nome_mae": "Marisa"
+                    }
+                }
+            ],
+            "indicadores": {
+                "total_inscritos": 8,
+                "total_concluintes": 45,
+                "orcamento_previsto": 80000,
+                "orcamento_utilizado": 32000,
+                "satisfacao_media": 4.3,
+                "taxa_conclusao": "30%",
+                "percentual_orcamento_utilizado": "40%",
+                "empregabilidade_apos_conclusao": "10%",
+                "numero_certificados_emitidos": 37,
+                "numero_horas_aula_ministradas": 100,
+                "avaliacoes_positivas": 40,
+                "avaliacoes_negativas": 5,
+                "ticket_medio_por_aluno": 1566,
+                "percentual_alunos_certificados": "20%",
+                "modulos_mais_populares": [
+                    "Lógica de Programação",
+                    "Desenvolvimento Web"
+                ],
+                "media_idade_alunos": 26,
+                "taxa_retencao_alunos": "75%",
+                "percentual_alunos_sem_certificacao": "80%"
+            },
+            "professores": [
+                {
+                    "id": 1,
+                    "nome": "RANIERY MARTINS JORGE",
+                    "especialidades": [
+                        "POO"
+                    ],
+                    "dados_pessoais": {
+                        "email": "ranierymj@gmail.com",
+                        "telefone": "98987533472",
+                        "endereco": "Rua Cinco, 27",
+                        "senha": "1234"
+                    }
+                },
+                {
+                    "id": 2,
+                    "nome": "RANIERY MARTINS JORGE",
+                    "especialidades": [
+                        "EDO"
+                    ],
+                    "dados_pessoais": {
+                        "email": "ranierymj@gmail.com",
+                        "telefone": "98987533472",
+                        "endereco": "Rua Cinco, 27",
+                        "senha": "1234"
+                    }
+                },
+                {
+                    "id": 3,
+                    "nome": "Lucas",
+                    "especialidades": [
+                        "Banco de Dados"
+                    ],
+                    "dados_pessoais": {
+                        "email": "bvc@gmail.com",
+                        "telefone": "31991733802",
+                        "rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "Jardim Industrial",
+                        "municipio": "Contagem",
+                        "senha": "123"
+                    }
+                },
+                {
+                    "id": 4,
+                    "nome": "Augusto ",
+                    "especialidades": [
+                        "Banco de Dados"
+                    ],
+                    "dados_pessoais": {
+                        "email": "augusto@gmail.com",
+                        "telefone": "31991733802",
+                        "rua": "frederico campos",
+                        "numero": "205",
+                        "bairro": "Jardim Industrial",
+                        "municipio": "Contagem",
+                        "senha": "123456"
+                    }
+                }
+            ],
+            "turmas": [
+                {
+                    "id": 1,
+                    "nome_curso": "POO",
+                    "professor_id": 1,
+                    "aulas": [
+                        {
+                            "data": "2025-02-21",
+                            "horario": {
+                                "inicio": "14:30",
+                                "fim": "15:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-22",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-23",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-24",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 10,
+                    "alunos": [
+                        {
+                            "id": 1,
+                            "nome": "riquelme martins",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        },
+                        {
+                            "id": 2,
+                            "nome": "Ted Anderson",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        },
+                        {
+                            "id": 3,
+                            "nome": "Eduardo Cunha",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        },
+                        {
+                            "id": 1,
+                            "nome": "Ted Anderson",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nome_curso": "POO 2",
+                    "professor_id": 1,
+                    "aulas": [
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "14:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-28",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "14:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 10,
+                    "alunos": [
+                        {
+                            "id": 1,
+                            "nome": "riquelme martins",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "nome_curso": "Java",
+                    "professor_id": 1,
+                    "aulas": [
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-21",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 3,
+                    "alunos": [
+                        1
+                    ]
+                },
+                {
+                    "id": 4,
+                    "nome_curso": "games",
+                    "professor_id": 1,
+                    "aulas": [
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-02-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 10,
+                    "alunos": [
+                        1,
+                        {
+                            "id": 2,
+                            "nome": "Eduardo Cunha",
+                            "frequencia": 0,
+                            "aprovado": "Pendente"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "nome_curso": "Banco de Dados",
+                    "professor_id": 3,
+                    "aulas": [
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-19",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-21",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-24",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-25",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-26",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-27",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-28",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-31",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 10,
+                    "alunos": [
+                        6,
+                        5,
+                        4,
+                        {
+                            "id": 1,
+                            "nome": "Ted Anderson",
+                            "frequencia": 90,
+                            "aprovado": "Pendente"
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "nome_curso": "HTML basico",
+                    "professor_id": 3,
+                    "aulas": [
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-19",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-20",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-21",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-24",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 10,
+                    "alunos": [
+                        2,
+                        4,
+                        {
+                            "id": 7,
+                            "nome": "Augusto Leone",
+                            "frequencia": 10,
+                            "aprovado": "Pendente"
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "nome_curso": "html",
+                    "professor_id": 1,
+                    "aulas": [
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        },
+                        {
+                            "data": "2025-03-18",
+                            "horario": {
+                                "inicio": "08:00",
+                                "fim": "12:00"
+                            }
+                        }
+                    ],
+                    "numero_vagas": 100,
+                    "alunos": []
+                }
+            ],
+            "indicadores_professores": {
+                "total_professores": 7,
+                "media_avaliacao": 4.5,
+                "numero_cursos_lecionados": 2
+            }
+        }
+    ],
+    "indicadores_gerais": {
+        "numero_servidores": 60,
+        "indice_eficiencia": 0.88,
+        "taxa_atendimento": 0.92,
+        "taxa_resolucao_problemas": 0.87,
+        "tempo_medio_atendimento": "12 minutos",
+        "numero_chamados_mensais": 500,
+        "satisfacao_geral_usuarios": 4.1,
+        "projetos_concluidos_este_ano": 2,
+        "numero_total_alunos_cadastrados": 150,
+        "taxa_crescimento_alunos_ano": "12%",
+        "media_certificacoes_por_aluno": 1.2,
+        "numero_total_certificacoes_emitidas": 200,
+        "percentual_orcamento_total_utilizado": "50%",
+        "total_horas_aula_ministradas_secretaria": 300
+    }
+}

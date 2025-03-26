@@ -1,0 +1,17 @@
+import sqlite3
+import os
+
+DB_PATH = "attendance.db"
+
+def clear_all_attendance():
+    # Se quiser manter a estrutura do banco mas limpar a tabela:
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM attendance")
+    conn.commit()
+    conn.close()
+
+if __name__ == "__main__":
+    # Basta chamar a função:
+    clear_all_attendance()
+    print("Todos os registros de frequência foram removidos.")
