@@ -1,317 +1,185 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from .banco_de_dados import conexao_db
+import json
 
+# Função para carregar o banco de dados em JSON
+def carregar_dados_json():
+    with open("banco_de_dados.json", "r") as file:
+        return json.load(file)
+
+# Função para calcular a margem bruta
 def margem_bruta():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
     
-    # Consulta SQL para calcular a receita total agrupada por mês, considerando apenas janeiro a junho
-    cursor.execute("""
-        SELECT 
-            TO_CHAR(data, 'YYYY-MM') AS mes,  
-            SUM(valor) AS total_receita      
-        FROM controle_receita_despesa
-        WHERE tipo = 'receita'              
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-        GROUP BY mes  
-        ORDER BY mes  
-    """)
+    # Filtra as receitas e calcula a receita total por mês
+    receitas = [
+        (item["data"][:7], item["valor"]) for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "receita" and int(item["data"][5:7]) <= 6
+    ]
     
-    # Obtém os resultados da consulta
-    resultados = cursor.fetchall()
-    
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-    
-    # Converte os resultados em um DataFrame
-    df = pd.DataFrame(resultados, columns=["Mês", "Receita Total"])
-    
-    # Cria um gráfico de linha
+    # Agrupa as receitas por mês
+    df = pd.DataFrame(receitas, columns=["Mês", "Receita Total"])
+    df = df.groupby("Mês").sum().reset_index()
+
+    # Cria o gráfico de linha
     fig = px.line(df, x="Mês", y="Receita Total", markers=True, title="Receita Total por Mês")
-    
-    # Exibe o gráfico no Streamlit
     st.plotly_chart(fig)
 
+# Função para calcular o lucro operacional
 def lucro_operacional():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
 
-    # Consulta SQL para calcular a receita total agrupada por mês (janeiro a junho)
-    cursor.execute("""
-        SELECT 
-            TO_CHAR(data, 'YYYY-MM') AS mes,  
-            SUM(valor) AS total_receita       
-        FROM controle_receita_despesa
-        WHERE tipo = 'receita'               
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-        GROUP BY mes
-        ORDER BY mes
-    """)
+    # Filtra as receitas e despesas operacionais por mês
+    receitas = {
+        item["data"][:7]: item["valor"]
+        for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "receita" and int(item["data"][5:7]) <= 6
+    }
+
+    despesas = {
+        item["data"][:7]: item["valor"]
+        for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa" and item["categoria"] in ['salario', 'manutenção'] and int(item["data"][5:7]) <= 6
+    }
+
+    # Meses
+    meses = sorted(set(receitas.keys()) | set(despesas.keys()))
     
-    receitas = dict(cursor.fetchall())  # Converte para dicionário {mes: total_receita}
-
-    # Consulta SQL para calcular as despesas operacionais (salário e manutenção) por mês (janeiro a junho)
-    cursor.execute("""
-        SELECT 
-            TO_CHAR(data, 'YYYY-MM') AS mes,  
-            SUM(valor) AS total_despesa       
-        FROM controle_receita_despesa
-        WHERE tipo = 'despesa'               
-        AND categoria IN ('salario', 'manutenção')  
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-        GROUP BY mes
-        ORDER BY mes
-    """)
-    
-    despesas = dict(cursor.fetchall())  # Converte para dicionário {mes: total_despesa}
-
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-
-    # Criando um DataFrame consolidado com lucro operacional (receita - despesa)
-    meses = sorted(set(receitas.keys()) | set(despesas.keys()))  # Garante que todos os meses estejam na lista
+    # Cria o DataFrame
     df = pd.DataFrame({
         "Mês": meses,
-        "Receita Total": [receitas.get(mes, 0) for mes in meses],  # Usa 0 se o mês não estiver presente
-        "Despesa Operacional": [despesas.get(mes, 0) for mes in meses]  # Usa 0 se o mês não estiver presente
+        "Receita Total": [receitas.get(mes, 0) for mes in meses],
+        "Despesa Operacional": [despesas.get(mes, 0) for mes in meses]
     })
-
-    # Calcula o lucro operacional (Receita - Despesa)
+    
     df["Lucro Operacional"] = df["Receita Total"] - df["Despesa Operacional"]
-
-    # Cria um gráfico de barras
-    fig = px.bar(
-        df, x="Mês", y="Lucro Operacional", 
-        title="Lucro Operacional por Mês",
-        text_auto=True  # Exibe os valores nas barras
-    )
-
-    # Exibe o gráfico no Streamlit
+    
+    # Cria o gráfico de barras
+    fig = px.bar(df, x="Mês", y="Lucro Operacional", title="Lucro Operacional por Mês", text_auto=True)
     st.plotly_chart(fig)
 
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-from .banco_de_dados import conexao_db
-
+# Função para calcular o lucro líquido
 def lucro_liquido():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
 
-    # Consulta SQL para calcular a receita total por mês (janeiro a junho)
-    cursor.execute("""
-        SELECT 
-            TO_CHAR(data, 'YYYY-MM') AS mes,  
-            SUM(valor) AS total_receita       
-        FROM controle_receita_despesa
-        WHERE tipo = 'receita'               
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-        GROUP BY mes
-        ORDER BY mes
-    """)
-    
-    receitas = dict(cursor.fetchall())  # Converte para {mes: total_receita}
+    # Filtra as receitas e despesas totais por mês
+    receitas = {
+        item["data"][:7]: item["valor"]
+        for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "receita" and int(item["data"][5:7]) <= 6
+    }
 
-    # Consulta SQL para calcular as despesas totais por mês (janeiro a junho)
-    cursor.execute("""
-        SELECT 
-            TO_CHAR(data, 'YYYY-MM') AS mes,  
-            SUM(valor) AS total_despesa       
-        FROM controle_receita_despesa
-        WHERE tipo = 'despesa'               
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-        GROUP BY mes
-        ORDER BY mes
-    """)
+    despesas = {
+        item["data"][:7]: item["valor"]
+        for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa" and int(item["data"][5:7]) <= 6
+    }
 
-    despesas = dict(cursor.fetchall())  # Converte para {mes: total_despesa}
-
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-
-    # Lista de meses esperados
+    # Meses
     meses = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06']
-
-    # Criando DataFrame com valores de receita, despesa e lucro líquido
+    
+    # Cria o DataFrame
     df = pd.DataFrame({
         "Mês": meses,
-        "Receita Total": [receitas.get(mes, 0) for mes in meses],  
-        "Despesa Total": [despesas.get(mes, 0) for mes in meses]  
+        "Receita Total": [receitas.get(mes, 0) for mes in meses],
+        "Despesa Total": [despesas.get(mes, 0) for mes in meses]
     })
-
-    # Calcula o Lucro Líquido
+    
     df["Lucro Líquido"] = df["Receita Total"] - df["Despesa Total"]
-
-    # Cria um gráfico de barras
-    fig = px.bar(
-        df, x="Mês", y="Lucro Líquido", 
-        title="Lucro Líquido por Mês",
-        text_auto=True,  # Exibe os valores nas barras
-        labels={"Lucro Líquido": "Valor (R$)"}
-    )
-
-    # Exibe o gráfico no Streamlit
+    
+    # Cria o gráfico de barras
+    fig = px.bar(df, x="Mês", y="Lucro Líquido", title="Lucro Líquido por Mês", text_auto=True, labels={"Lucro Líquido": "Valor (R$)"})
     st.plotly_chart(fig)
 
+# Função para calcular a alavancagem de endividamento
 def alavancagem_endividamento():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
 
-    # Consulta SQL para calcular o total de receitas de janeiro a junho
-    cursor.execute("""
-        SELECT 
-            SUM(valor) AS total_receita       
-        FROM controle_receita_despesa
-        WHERE tipo = 'receita'               
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-    """)
-    
-    receita_total = cursor.fetchone()[0] or 0  
+    # Calcula a receita total de janeiro a junho
+    receita_total = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "receita" and int(item["data"][5:7]) <= 6
+    )
 
-    # Consulta SQL para calcular o total de despesas de janeiro a junho
-    cursor.execute("""
-        SELECT 
-            SUM(valor) AS total_despesa       
-        FROM controle_receita_despesa
-        WHERE tipo = 'despesa'               
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  
-    """)
-    
-    despesa_total = cursor.fetchone()[0] or 0  
+    # Calcula a despesa total de janeiro a junho
+    despesa_total = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa" and int(item["data"][5:7]) <= 6
+    )
 
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-
-    # Evita divisão por zero e calcula a alavancagem percentual
+    # Calcula o índice de alavancagem
     if receita_total == 0:
-        alavancagem_percentual = 0  
+        alavancagem_percentual = 0
     else:
-        alavancagem_percentual = (despesa_total / receita_total) * 100  
+        alavancagem_percentual = (despesa_total / receita_total) * 100
 
-    # Define os dados para o gráfico de pizza
+    # Cria o gráfico de pizza
     df = pd.DataFrame({
         "Categoria": ["Alavancagem (Endividamento)", "Capital Restante"],
         "Percentual": [alavancagem_percentual, 100 - alavancagem_percentual]
     })
-
-    # Cria um gráfico de pizza
-    fig = px.pie(
-        df, 
-        names="Categoria", 
-        values="Percentual", 
-        title="Índice de Alavancagem e Endividamento",
-        hole=0.4  # Criando um efeito de "doughnut"
-    )
-
-    # Exibe o gráfico no Streamlit
+    
+    fig = px.pie(df, names="Categoria", values="Percentual", title="Índice de Alavancagem e Endividamento", hole=0.4)
     st.plotly_chart(fig)
 
+# Função para calcular a liquidez corrente
 def liquidez_corrente():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
 
-    # Consulta SQL para calcular o total de receitas entre janeiro a junho de 2025
-    cursor.execute("""
-        SELECT SUM(valor) 
-        FROM controle_receita_despesa 
-        WHERE tipo = 'receita' 
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  -- Filtra de janeiro a junho
-    """)
-    receita = cursor.fetchone()[0] or 0  # Obtém o valor da receita, ou 0 se não houver dados
+    # Calcula a receita total de janeiro a junho
+    receita = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "receita" and int(item["data"][5:7]) <= 6
+    )
 
-    # Consulta SQL para calcular o total de despesas entre janeiro a junho de 2025
-    cursor.execute("""
-        SELECT SUM(valor) 
-        FROM controle_receita_despesa 
-        WHERE tipo = 'despesa' 
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  -- Filtra de janeiro a junho
-    """)
-    despesa = cursor.fetchone()[0] or 0  # Obtém o valor da despesa, ou 0 se não houver dados
+    # Calcula a despesa total de janeiro a junho
+    despesa = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa" and int(item["data"][5:7]) <= 6
+    )
 
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-
-    # Define os dados para o gráfico de pizza
+    # Cria o gráfico de pizza
     df = pd.DataFrame({
         "Categoria": ["Receita Corrente", "Despesa Corrente"],
         "Valor": [receita, despesa]
     })
 
-    # Cria o gráfico de pizza
-    fig = px.pie(
-        df, 
-        names="Categoria", 
-        values="Valor", 
-        title="Receita vs Despesa",
-        hole=0.4  # Efeito "doughnut"
-    )
-
-    # Exibe o gráfico no Streamlit
+    fig = px.pie(df, names="Categoria", values="Valor", title="Receita vs Despesa", hole=0.4)
     st.plotly_chart(fig)
 
+# Função para calcular a composição de endividamento
 def composicao_endividamento():
-    # Estabelece conexão com o banco de dados
-    conn = conexao_db()
-    cursor = conn.cursor()
+    dados = carregar_dados_json()
 
-    # Consulta SQL para calcular o total de despesas circulantes entre janeiro a junho de 2025
-    cursor.execute("""
-        SELECT SUM(valor) 
-        FROM controle_receita_despesa 
-        WHERE tipo = 'despesa' 
-        AND EXTRACT(MONTH FROM data) IN (1, 2, 3, 4, 5, 6)  -- Filtra de janeiro a junho
-    """)
-    despesa_circulante = cursor.fetchone()[0] or 0  # Obtém o valor da despesa circulante, ou 0 se não houver dados
+    # Calcula a despesa circulante e total
+    despesa_circulante = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa" and item["categoria"] == "circulante" and int(item["data"][5:7]) <= 6
+    )
 
-    # Consulta SQL para calcular o total de todas as despesas
-    cursor.execute("""
-        SELECT SUM(valor) 
-        FROM controle_receita_despesa 
-        WHERE tipo = 'despesa'
-    """)
-    despesa_total = cursor.fetchone()[0] or 0  # Obtém o valor total das despesas, ou 0 se não houver dados
+    despesa_total = sum(
+        item["valor"] for item in dados["controle_receita_despesa"]
+        if item["tipo"] == "despesa"
+    )
 
-    # Fecha a conexão com o banco de dados
-    cursor.close()
-    conn.close()
-
-    # Evita divisão por zero e calcula o percentual de despesa circulante
+    # Calcula o percentual de despesa circulante
     if despesa_total == 0:
-        despesa_circulante_percentual = 0  # Evita divisão por zero
+        despesa_circulante_percentual = 0
     else:
-        despesa_circulante_percentual = (despesa_circulante / despesa_total) * 100  # Calcula o percentual
+        despesa_circulante_percentual = (despesa_circulante / despesa_total) * 100
 
-    # Define os dados para o gráfico de pizza
+    # Cria o gráfico de pizza
     df = pd.DataFrame({
         "Categoria": ["Despesa Circulante", "Despesa Não Circulante"],
         "Percentual": [despesa_circulante_percentual, 100 - despesa_circulante_percentual]
     })
 
-    # Cria o gráfico de pizza
-    fig = px.pie(
-        df, 
-        names="Categoria", 
-        values="Percentual", 
-        title="Composição das Despesas (Percentual)",
-        hole=0.4  # Efeito "doughnut"
-    )
-
-    # Exibe o gráfico no Streamlit
+    fig = px.pie(df, names="Categoria", values="Percentual", title="Composição das Despesas (Percentual)", hole=0.4)
     st.plotly_chart(fig)
 
-def relatorios ():
+# Função que chama todas as funções de relatórios
+def relatorios():
     margem_bruta()
     lucro_operacional()
     lucro_liquido()
@@ -321,4 +189,4 @@ def relatorios ():
 
 # Chamando a função dentro do script Streamlit
 if __name__ == "__main__":
-    margem_bruta()
+    relatorios()

@@ -8,7 +8,6 @@ from scripts.docentes import cadastrar_professor, cadastrar_curso, cadastrar_tur
 from scripts.agendamentos import agendamentos_app
 from scripts.estoque import estoque
 from scripts.funcionarios import funcionarios
-from scripts.financeiro import financeiro
 from scripts.indices import indices_page
 
 st.markdown(
@@ -45,17 +44,8 @@ def home_page():
         st.session_state.page = "estoque"
     if col5.button("👥\nFuncionarios"):
         st.session_state.page = "funcionarios"
-    if col6.button("💲\nFinanceiro"):
-        st.session_state.page = "financeiro"
-    
-    col7, col8, col9 = st.columns(3)
-    if col7.button("📊\nIndices"):
+    if col6.button("📊\nIndices"):
         st.session_state.page = "indices"
-    #if col8.button("🛠️\nEm desenvolvimento"):
-    #    st.session_state.page = "professor"
-    #if col9.button("🛠️\nEm desenvolvimento"):
-    #    st.session_state.page = "assistente"
-
 
     if st.button("Logout"):
         st.session_state.logged_in = False
@@ -108,11 +98,6 @@ elif st.session_state.page == 'estoque':
     estoque()
 elif st.session_state.page == 'funcionarios':
     funcionarios()
-elif st.session_state.page == 'financeiro':
-    financeiro()
 elif st.session_state.page == 'indices':
     indices_page()
-#elif st.session_state.page == 'professor':
-#    home_page()
-#elif st.session_state.page == 'assistente':
-#    home_page()
+
