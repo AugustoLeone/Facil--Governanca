@@ -32,20 +32,21 @@ def home_page():
     st.title("Bem-vindo ao Sistema Estação Tech")
     st.write("Selecione a funcionalidade desejada:")
     col1, col2, col3 = st.columns(3)
-    if col1.button("🎓\nDiscentes"):
-        st.session_state.page = "discentes"
-    if col2.button("👩‍🏫\nDocentes"):
-        st.session_state.page = "docentes"
+    
+    if col1.button("📦\nEstoque"):
+        st.session_state.page = "estoque"
+    if col2.button("👥\nFuncionarios"):
+        st.session_state.page = "funcionarios"
     if col3.button("📅\nAgendamentos"):
         st.session_state.page = "agendamentos"
     
     col4, col5, col6 = st.columns(3)
-    if col4.button("📦\nEstoque"):
-        st.session_state.page = "estoque"
-    if col5.button("👥\nFuncionarios"):
-        st.session_state.page = "funcionarios"
-    if col6.button("📊\nIndices"):
+    if col4.button("📊\nIndices"):
         st.session_state.page = "indices"
+    #if col5.button("🎓\nDiscentes"):
+        #st.session_state.page = "discentes"
+    #if col6.button("👩‍🏫\nDocentes"):
+        #st.session_state.page = "docentes"
 
     if st.button("Logout"):
         st.session_state.logged_in = False
@@ -88,10 +89,10 @@ if "page" not in st.session_state:
 
 if st.session_state.page == "home":
     home_page()
-elif st.session_state.page == "discentes":
-    render_discentes()
-elif st.session_state.page == "docentes":
-    render_docentes()
+#elif st.session_state.page == "discentes":
+    #render_discentes()
+#elif st.session_state.page == "docentes":
+    #render_docentes()
 elif st.session_state.page == "agendamentos":
     render_agendamentos()
 elif st.session_state.page == 'estoque':
